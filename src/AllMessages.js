@@ -75,7 +75,7 @@ export default class AllMessages extends Component<Props, State> {
             [].concat(messages)
               .sort((a, b) => a.createdAt - b.createdAt)
               .map(message => {
-                const { color, avatar, text } = users.find(u => u.id == message.userId)
+                const { color, avatar, text } = users.find(u => u.id === message.userId)
                 return <Message color={color} key={message.id}>
                   <Message.Header>
                     <Image src={avatar} avatar />{text}
@@ -87,7 +87,11 @@ export default class AllMessages extends Component<Props, State> {
           <Form onChange={this.handleChange.bind(this, 'text')} onSubmit={this.handleAdd.bind(this)}>
             <Form.Field>
               <label>Message</label>
-              <input placeholder={!userId ? 'Select a user' : 'Message'} value={this.state.text} disabled={!userId}/>
+              <input
+                placeholder={!userId ? 'Select a user' : 'Message'}
+                value={this.state.text}
+                disabled={!userId}
+              />
             </Form.Field>
             <Button type='submit' disabled={!userId}>Submit</Button>
           </Form>

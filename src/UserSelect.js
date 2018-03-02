@@ -7,7 +7,7 @@ type Props = {
   onSelect: Function
 }
 
-export default class UserSelect extends Component<Props, State> {
+export default class UserSelect extends Component<Props> {
   static defaultProps = {
     userOptions: [],
     selectedUser: {},
