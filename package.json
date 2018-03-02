@@ -20,6 +20,7 @@
     "standard": "standard"
   },
   "devDependencies": {
+    "apollo-cache-inmemory": "^1.1.9",
     "aws-appsync": "^1.0.12",
     "aws-appsync-react": "^1.0.6",
     "aws-sdk": "^2.205.0",
@@ -28,6 +29,7 @@
     "flow-bin": "^0.66.0",
     "graphql-tag": "^2.8.0",
     "react-apollo": "^2.0.4",
+    "semantic-ui-react": "^0.78.3",
     "standard": "^11.0.0"
   },
   "standard": {

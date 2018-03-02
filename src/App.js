@@ -8,7 +8,6 @@ import * as AWS from 'aws-sdk'
 import gql from 'graphql-tag'
 import AllMessages from './AllMessages'
 import AppSync from './AppSync'
-import logo from './logo.svg'
 import './App.css'
 
 const client = new AWSAppSyncClient({
@@ -26,7 +25,6 @@ const client = new AWSAppSyncClient({
     // jwtToken: async () => (await Auth.currentSession()).getIdToken().getJwtToken(),
   }
 })
-console.log(client)
 
 type Props = {}
 
@@ -35,8 +33,7 @@ class App extends Component<Props> {
     return (
       <div className='App'>
         <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <h1 className='App-title'>Welcome to React</h1>
+          <h1>Welcome</h1>
         </header>
         <AllMessagesWithData />
       </div>
@@ -48,30 +45,61 @@ const ListMessagesQuery = gql`
 query ListMessages {
   listMessages {
     items {
+      __typename
       id
+      createdAt
       text
     }
   }
 }`
 
-const AllMessagesWithData = graphql(ListMessagesQuery, {
-  options: {
-    fetchPolicy: 'cache-and-network'
-  },
-  props: props => ({
-    messages: props.data.listMessages && props.data.listMessages.items
-  })
-})(AllMessages)
-
-const createMessageQuery = gql`
-mutation CreateMessage {
-  createMessage(text: "hello", createdAt: "now") {
+const CreateMessageMutation = gql`
+mutation CreateMessageMutation($id: ID!, $text: String!, $createdAt: String!) {
+  createMessage(
+    text: $text
+    createdAt: $createdAt
+  ) {
+    __typename
     id
-    text
     createdAt
+    text
   }
 }
 `
+
+const AllMessagesWithData = compose(
+  graphql(ListMessagesQuery, {
+    options: {
+      fetchPolicy: 'cache-and-network'
+    },
+    props: props => ({
+      messages: props.data.listMessages && props.data.listMessages.items
+    })
+  }),
+  graphql(CreateMessageMutation, {
+    options: {
+      update: (store, { data: { createMessage } }) => {
+        const data = store.readQuery({ query: ListMessagesQuery })
+        data.listMessages.items.push(createMessage)
+        store.writeQuery({ query: ListMessagesQuery, data })
+      }
+    },
+    props: props => ({
+      onAdd: message => props.mutate({
+        mutation: CreateMessageMutation,
+        variables: message,
+        optimisticResponse: {
+          __typename: 'Mutation',
+          createMessage: {
+            __typename: 'Message',
+            ...message
+          }
+        }
+      })
+    })
+  })
+)(AllMessages)
+
 const WithProvider = () => (
   <ApolloProvider client={client}>
     <Rehydrated>
