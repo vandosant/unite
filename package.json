@@ -18,6 +18,10 @@
     "lint": "standard --env mocha"
   },
   "devDependencies": {
+    "aws-appsync": "^1.0.12",
+    "aws-appsync-react": "^1.0.6",
+    "aws-sdk": "^2.205.0",
+    "react-apollo": "^2.0.4",
     "standard": "^11.0.0"
   }
 }
