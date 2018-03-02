@@ -25,6 +25,8 @@ jobs:
       - run: npm run test
 
       # Deploy
-      - deploy: |
-          npm run build \
-          aws s3 sync build/ s3://unite-app/
+      - deploy:
+          name: Deploy to s3
+          command: |
+            npm run build \
+            aws s3 sync build/ s3://unite-app/
