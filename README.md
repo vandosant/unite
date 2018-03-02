@@ -3,6 +3,12 @@ user-to-user messaging web app
 
 Example app available at [S3 bucket](http://unite-app.s3-website-us-east-1.amazonaws.com)
 
+## todos
+- SSL with AWS certificate manager
+- Cloudfront distribution
+- Programmatic updates of the schema & resolvers (w/ appsync api? terraform?)
+- Write better tests!
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
