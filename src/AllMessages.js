@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Form } from 'semantic-ui-react'
-import { defaultDataIdFromObject } from 'apollo-cache-inmemory'
+import { Button, Container, Form, Header, Message } from 'semantic-ui-react'
 
 type Props = {
   messages: Array<Object>,
@@ -9,6 +8,13 @@ type Props = {
 
 type State = {
   text: string
+}
+
+const style = {
+  h3: {
+    marginTop: '2em',
+    padding: '2em 0em',
+  }
 }
 
 export default class AllMessages extends Component {
@@ -27,16 +33,19 @@ export default class AllMessages extends Component {
 
   handleChange (field, event) {
     event.preventDefault()
+
     this.setState({ [field]: event.target.value})
   }
 
-  handleAdd () {
+  handleAdd (event) {
+    event.preventDefault()
+
     const { text } = this.state
     const createdAt = +new Date
     const add = { text, createdAt }
 
     this.setState({ text: '' })
-    this.props.onAdd({ ...add, id: defaultDataIdFromObject(add) })
+    this.props.onAdd({ ...add })
   }
 
   render () {
@@ -44,14 +53,35 @@ export default class AllMessages extends Component {
 
     return (
       <div>
-        {[].concat(messages).map(message => <div key={message.id}>{message.text}</div>)}
-        <Form onChange={this.handleChange.bind(this, 'text')} onSubmit={this.handleAdd.bind(this)}>
-          <Form.Field>
-            <label>Message</label>
-            <input placeholder='Message' />
-          </Form.Field>
-          <Button type='submit'>Submit</Button>
-        </Form>
+        <Header
+          as='h3'
+          content='Messages'
+          style={style.h3}
+          textAlign='center'
+        />
+        <Container text>
+          {
+            [].concat(messages)
+            .sort((a, b) => a.createdAt - b.createdAt)
+            .map(message =>
+              <Message info>
+                <Message.Header>
+                  {message.createdAt}
+                </Message.Header>
+                <p>
+                  {message.text}
+                </p>
+              </Message>
+            )
+          }
+          <Form onChange={this.handleChange.bind(this, 'text')} onSubmit={this.handleAdd.bind(this)}>
+            <Form.Field>
+              <label>Message</label>
+              <input placeholder='Message' value={this.state.text} />
+            </Form.Field>
+            <Button type='submit'>Submit</Button>
+          </Form>
+        </Container>
       </div>
     )
   }

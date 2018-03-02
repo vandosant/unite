@@ -4,11 +4,12 @@ import AWSAppSyncClient from 'aws-appsync'
 import { Rehydrated } from 'aws-appsync-react'
 import { AUTH_TYPE } from 'aws-appsync/lib/link/auth-link'
 import { graphql, ApolloProvider, compose } from 'react-apollo'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 import * as AWS from 'aws-sdk'
 import gql from 'graphql-tag'
+import { Container } from 'semantic-ui-react'
 import AllMessages from './AllMessages'
 import AppSync from './AppSync'
-import './App.css'
 
 const client = new AWSAppSyncClient({
   url: AppSync.graphqlEndpoint,
@@ -23,7 +24,10 @@ const client = new AWSAppSyncClient({
     // Amazon Cognito user pools using AWS Amplify
     // type: AUTH_TYPE.AMAZON_COGNITO_USER_POOLS,
     // jwtToken: async () => (await Auth.currentSession()).getIdToken().getJwtToken(),
-  }
+  },
+  cache: new InMemoryCache({
+    dataIdFromObject: object => object.id
+  })
 })
 
 type Props = {}
@@ -31,12 +35,9 @@ type Props = {}
 class App extends Component<Props> {
   render () {
     return (
-      <div className='App'>
-        <header className='App-header'>
-          <h1>Welcome</h1>
-        </header>
+      <Container>
         <AllMessagesWithData />
-      </div>
+      </Container>
     )
   }
 }
@@ -54,7 +55,7 @@ query ListMessages {
 }`
 
 const CreateMessageMutation = gql`
-mutation CreateMessageMutation($id: ID!, $text: String!, $createdAt: String!) {
+mutation CreateMessageMutation($text: String!, $createdAt: String!) {
   createMessage(
     text: $text
     createdAt: $createdAt
@@ -89,10 +90,11 @@ const AllMessagesWithData = compose(
         mutation: CreateMessageMutation,
         variables: message,
         optimisticResponse: {
-          __typename: 'Mutation',
           createMessage: {
             __typename: 'Message',
-            ...message
+            text: message.text,
+            createdAt: message.createdAt,
+            id: -1
           }
         }
       })
