@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { Container, Header } from 'semantic-ui-react'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
@@ -11,42 +10,42 @@ Enzyme.configure({ adapter: new Adapter() })
 const expectedProps = {
   userOptions: [
     {
-      avatar: "jane.svg",
-      color: "green",
+      avatar: 'jane.svg',
+      color: 'green',
       id: 1,
       key: 1,
-      text: "Jane",
+      text: 'Jane',
       value: 1
     },
     {
-      avatar: "karl.svg",
-      color: "blue",
+      avatar: 'karl.svg',
+      color: 'blue',
       id: 2,
       key: 2,
-      text: "Karl",
+      text: 'Karl',
       value: 2
     },
     {
-      avatar: "ruth.svg",
-      color: "orange",
+      avatar: 'ruth.svg',
+      color: 'orange',
       id: 3,
       key: 3,
-      text: "Ruth",
+      text: 'Ruth',
       value: 3},
     {
-      avatar: "angela.svg",
-      color: "purple",
+      avatar: 'angela.svg',
+      color: 'purple',
       id: 4,
       key: 4,
-      text: "Angela",
+      text: 'Angela',
       value: 4
     },
     {
-      avatar: "bill.svg",
-      color: "brown",
+      avatar: 'bill.svg',
+      color: 'brown',
       id: 5,
       key: 5,
-      text: "Bill",
+      text: 'Bill',
       value: 5
     }
   ]
