@@ -7,7 +7,7 @@ type Props = {
 }
 
 type State = {
-  text: string
+  text: String
 }
 
 const style = {
@@ -60,7 +60,7 @@ export default class AllMessages extends Component<Props, State> {
             [].concat(messages)
               .sort((a, b) => a.createdAt - b.createdAt)
               .map(message =>
-                <Message info>
+                <Message info key={message.id}>
                   <Message.Header>
                     {message.createdAt}
                   </Message.Header>
