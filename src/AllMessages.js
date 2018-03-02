@@ -13,18 +13,14 @@ type State = {
 const style = {
   h3: {
     marginTop: '2em',
-    padding: '2em 0em',
+    padding: '2em 0em'
   }
 }
 
-export default class AllMessages extends Component {
+export default class AllMessages extends Component<Props, State> {
   static defaultProps = {
     messages: [],
     onAdd: () => {}
-  }
-
-  constructor (props) {
-    super(props)
   }
 
   state = {
@@ -34,14 +30,14 @@ export default class AllMessages extends Component {
   handleChange (field, event) {
     event.preventDefault()
 
-    this.setState({ [field]: event.target.value})
+    this.setState({ [field]: event.target.value })
   }
 
   handleAdd (event) {
     event.preventDefault()
 
     const { text } = this.state
-    const createdAt = +new Date
+    const createdAt = +new Date()
     const add = { text, createdAt }
 
     this.setState({ text: '' })
@@ -62,17 +58,17 @@ export default class AllMessages extends Component {
         <Container text>
           {
             [].concat(messages)
-            .sort((a, b) => a.createdAt - b.createdAt)
-            .map(message =>
-              <Message info>
-                <Message.Header>
-                  {message.createdAt}
-                </Message.Header>
-                <p>
-                  {message.text}
-                </p>
-              </Message>
-            )
+              .sort((a, b) => a.createdAt - b.createdAt)
+              .map(message =>
+                <Message info>
+                  <Message.Header>
+                    {message.createdAt}
+                  </Message.Header>
+                  <p>
+                    {message.text}
+                  </p>
+                </Message>
+              )
           }
           <Form onChange={this.handleChange.bind(this, 'text')} onSubmit={this.handleAdd.bind(this)}>
             <Form.Field>

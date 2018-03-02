@@ -5,7 +5,6 @@ import { Rehydrated } from 'aws-appsync-react'
 import { AUTH_TYPE } from 'aws-appsync/lib/link/auth-link'
 import { graphql, ApolloProvider, compose } from 'react-apollo'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import * as AWS from 'aws-sdk'
 import gql from 'graphql-tag'
 import { Container } from 'semantic-ui-react'
 import AllMessages from './AllMessages'
@@ -16,14 +15,7 @@ const client = new AWSAppSyncClient({
   region: AppSync.region,
   auth: {
     type: AUTH_TYPE.API_KEY,
-    apiKey: AppSync.apiKey,
-
-    // Amazon Cognito Federated Identities using AWS Amplify
-    // credentials: () => Auth.currentCredentials(),
-
-    // Amazon Cognito user pools using AWS Amplify
-    // type: AUTH_TYPE.AMAZON_COGNITO_USER_POOLS,
-    // jwtToken: async () => (await Auth.currentSession()).getIdToken().getJwtToken(),
+    apiKey: AppSync.apiKey
   },
   cache: new InMemoryCache({
     dataIdFromObject: object => object.id
