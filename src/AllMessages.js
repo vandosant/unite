@@ -13,7 +13,8 @@ type Props = {
   messages: Array<Object>,
   users: Array<Object>,
   userId: Number,
-  onAdd: Function
+  onAdd: Function,
+  subscribeToNewPosts: Function
 }
 
 type State = {
@@ -36,6 +37,10 @@ export default class AllMessages extends Component<Props, State> {
 
   state = {
     text: ''
+  }
+
+  componentWillMount () {
+    this.props.subscribeToNewMessages()
   }
 
   handleChange (field: String, event: Object) {

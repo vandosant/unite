@@ -90,7 +90,7 @@ class App extends Component<Props, State> {
 
   render () {
     return (
-      <Container>
+      <Container style={{ 'padding': '2em' }}>
         <Header>
           <UserSelect
             userOptions={this.state.users}
@@ -133,13 +133,39 @@ mutation CreateMessageMutation($text: String!, $createdAt: String!, $userId: Int
 }
 `
 
+const NewMessagesSubscription = gql`
+subscription NewMessagesSub {
+  newMessage {
+      __typename
+      id
+      createdAt
+      text
+      userId
+  }
+}`
+
 const AllMessagesWithData = compose(
   graphql(ListMessagesQuery, {
     options: {
       fetchPolicy: 'cache-and-network'
     },
     props: props => ({
-      messages: props.data.listMessages && props.data.listMessages.items
+      messages: props.data.listMessages && props.data.listMessages.items,
+      subscribeToNewMessages: params => {
+        props.data.subscribeToMore({
+          document: NewMessagesSubscription,
+          updateQuery: (prev, { subscriptionData: { data: { newMessage } } }) => ({
+            ...prev,
+            listMessages: {
+              __typename: 'PaginatedMessages',
+              items: [
+                newMessage,
+                ...prev.listMessages.items.filter(item => item.id !== newMessage.id)
+              ]
+            }
+          })
+        })
+      }
     })
   }),
   graphql(CreateMessageMutation, {
