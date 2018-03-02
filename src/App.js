@@ -77,7 +77,7 @@ type State = {
   selectedUser: Object
 }
 
-class App extends Component<Props, State> {
+export class App extends Component<Props, State> {
   state = {
     users,
     selectedUser: {}
@@ -144,7 +144,7 @@ subscription NewMessagesSub {
   }
 }`
 
-const AllMessagesWithData = compose(
+export const AllMessagesWithData = compose(
   graphql(ListMessagesQuery, {
     options: {
       fetchPolicy: 'cache-and-network'
