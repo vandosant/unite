@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
-import { Button, Container, Form, Header, Message } from 'semantic-ui-react'
+import {
+  Button,
+  Container,
+  Form,
+  Header,
+  Image,
+  Message
+} from 'semantic-ui-react'
 
 type Props = {
   messages: Array<Object>,
+  users: Array<Object>,
   userId: Number,
   onAdd: Function
 }
@@ -21,6 +29,7 @@ const style = {
 export default class AllMessages extends Component<Props, State> {
   static defaultProps = {
     messages: [],
+    users: [],
     onAdd: () => {}
   }
 
@@ -38,15 +47,20 @@ export default class AllMessages extends Component<Props, State> {
     event.preventDefault()
 
     const { text } = this.state
+    const { userId } = this.props
     const createdAt = +new Date()
-    const add = { text, createdAt }
+    const add = {
+      text,
+      createdAt,
+      userId
+    }
 
     this.setState({ text: '' })
     this.props.onAdd({ ...add })
   }
 
   render () {
-    const { messages, userId } = this.props
+    const { messages, users, userId } = this.props
 
     return (
       <div>
@@ -60,16 +74,15 @@ export default class AllMessages extends Component<Props, State> {
           {
             [].concat(messages)
               .sort((a, b) => a.createdAt - b.createdAt)
-              .map(message =>
-                <Message info key={message.id}>
+              .map(message => {
+                const { color, avatar, text } = users.find(u => u.id == message.userId)
+                return <Message color={color} key={message.id}>
                   <Message.Header>
-                    {message.createdAt}
+                    <Image src={avatar} avatar />{text}
                   </Message.Header>
-                  <p>
-                    {message.text}
-                  </p>
+                  <p>{message.text}</p>
                 </Message>
-              )
+              })
           }
           <Form onChange={this.handleChange.bind(this, 'text')} onSubmit={this.handleAdd.bind(this)}>
             <Form.Field>

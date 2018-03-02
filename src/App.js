@@ -10,8 +10,11 @@ import { Header, Container } from 'semantic-ui-react'
 import AllMessages from './AllMessages'
 import AppSync from './AppSync'
 import UserSelect from './UserSelect'
+import angela from './assets/angela.svg'
+import bill from './assets/bill.svg'
 import jane from './assets/jane.svg'
 import karl from './assets/karl.svg'
+import ruth from './assets/ruth.svg'
 
 const client = new AWSAppSyncClient({
   url: AppSync.graphqlEndpoint,
@@ -47,6 +50,7 @@ const users = [
     id: 3,
     color: 'orange',
     text: 'Ruth',
+    avatar: ruth,
     value: 3
   },
   {
@@ -54,6 +58,7 @@ const users = [
     id: 4,
     color: 'purple',
     text: 'Angela',
+    avatar: angela,
     value: 4
   },
   {
@@ -61,6 +66,7 @@ const users = [
     id: 5,
     color: 'brown',
     text: 'Bill',
+    avatar: bill,
     value: 5
   }
 ]
@@ -92,7 +98,7 @@ class App extends Component<Props, State> {
             onSelect={this.handleSelectUser.bind(this)}
           />
         </Header>
-        <AllMessagesWithData userId={this.state.selectedUser.id} />
+        <AllMessagesWithData userId={this.state.selectedUser.id} users={this.state.users} />
       </Container>
     )
   }
@@ -106,20 +112,23 @@ query ListMessages {
       id
       createdAt
       text
+      userId
     }
   }
 }`
 
 const CreateMessageMutation = gql`
-mutation CreateMessageMutation($text: String!, $createdAt: String!) {
+mutation CreateMessageMutation($text: String!, $createdAt: String!, $userId: Int!) {
   createMessage(
     text: $text
     createdAt: $createdAt
+    userId: $userId
   ) {
     __typename
     id
     createdAt
     text
+    userId
   }
 }
 `
@@ -150,7 +159,8 @@ const AllMessagesWithData = compose(
             __typename: 'Message',
             text: message.text,
             createdAt: message.createdAt,
-            id: -1
+            id: -1,
+            userId: message.userId
           }
         }
       })
