@@ -81,6 +81,8 @@ const AllMessagesWithData = compose(
     options: {
       update: (store, { data: { createMessage } }) => {
         const data = store.readQuery({ query: ListMessagesQuery })
+
+        console.log(createMessage)
         data.listMessages.items.push(createMessage)
         store.writeQuery({ query: ListMessagesQuery, data })
       }
