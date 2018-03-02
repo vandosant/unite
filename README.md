@@ -9,6 +9,18 @@ Example app available at [S3 bucket](http://unite-app.s3-website-us-east-1.amazo
 - Programmatic updates of the schema & resolvers (w/ appsync api? terraform?)
 - Remove hardcoded users (auth with AWS Cognito)
 - Write better tests!
+- Add / fix flow issues (turns out standardjs linting does not catch them!)
+
+## technologies
+- react for web ui
+- standardjs for linting
+- flow for type assertions
+- jest & enzyme for tests
+- graphql with apollo for state and data fetching (integrates with aws appsync)
+- aws dynamodb for data persistence
+- semantic-ui for styling and ui components
+- circleci for deployments
+- s3 for serving the static website
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
