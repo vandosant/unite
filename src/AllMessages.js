@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react'
 import {
   Button,
@@ -16,7 +17,7 @@ type Props = {
 }
 
 type State = {
-  text: String
+  text: string
 }
 
 const style = {
@@ -37,13 +38,13 @@ export default class AllMessages extends Component<Props, State> {
     text: ''
   }
 
-  handleChange (field, event) {
+  handleChange (field: String, event: Object) {
     event.preventDefault()
 
     this.setState({ [field]: event.target.value })
   }
 
-  handleAdd (event) {
+  handleAdd (event: Object) {
     event.preventDefault()
 
     const { text } = this.state
