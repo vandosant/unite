@@ -10,9 +10,7 @@ type Props = {
 export default class UserSelect extends Component<Props, State> {
   static defaultProps = {
     userOptions: [],
-    selectedUser: {
-      id: ''
-    },
+    selectedUser: {},
     onSelect: () => {}
   }
 

@@ -28,33 +28,38 @@ const client = new AWSAppSyncClient({
 const users = [
   {
     key: 1,
-    id: 'green',
+    id: 1,
+    color: 'green',
     text: 'Jane',
     avatar: jane,
     value: 1
   },
   {
     key: 2,
-    id: 'blue',
+    id: 2,
+    color: 'blue',
     text: 'Karl',
     avatar: karl,
     value: 2
   },
   {
     key: 3,
-    id: 'orange',
+    id: 3,
+    color: 'orange',
     text: 'Ruth',
     value: 3
   },
   {
     key: 4,
-    id: 'purple',
+    id: 4,
+    color: 'purple',
     text: 'Angela',
     value: 4
   },
   {
     key: 5,
-    id: 'brown',
+    id: 5,
+    color: 'brown',
     text: 'Bill',
     value: 5
   }
@@ -87,7 +92,7 @@ class App extends Component<Props, State> {
             onSelect={this.handleSelectUser.bind(this)}
           />
         </Header>
-        <AllMessagesWithData />
+        <AllMessagesWithData userId={this.state.selectedUser.id} />
       </Container>
     )
   }
@@ -132,8 +137,6 @@ const AllMessagesWithData = compose(
     options: {
       update: (store, { data: { createMessage } }) => {
         const data = store.readQuery({ query: ListMessagesQuery })
-
-        console.log(createMessage)
         data.listMessages.items.push(createMessage)
         store.writeQuery({ query: ListMessagesQuery, data })
       }

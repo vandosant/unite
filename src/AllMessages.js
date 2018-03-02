@@ -3,6 +3,7 @@ import { Button, Container, Form, Header, Message } from 'semantic-ui-react'
 
 type Props = {
   messages: Array<Object>,
+  userId: Number,
   onAdd: Function
 }
 
@@ -45,7 +46,7 @@ export default class AllMessages extends Component<Props, State> {
   }
 
   render () {
-    const { messages } = this.props
+    const { messages, userId } = this.props
 
     return (
       <div>
@@ -73,9 +74,9 @@ export default class AllMessages extends Component<Props, State> {
           <Form onChange={this.handleChange.bind(this, 'text')} onSubmit={this.handleAdd.bind(this)}>
             <Form.Field>
               <label>Message</label>
-              <input placeholder='Message' value={this.state.text} />
+              <input placeholder={!userId ? 'Select a user' : 'Message'} value={this.state.text} disabled={!userId}/>
             </Form.Field>
-            <Button type='submit'>Submit</Button>
+            <Button type='submit' disabled={!userId}>Submit</Button>
           </Form>
         </Container>
       </div>
