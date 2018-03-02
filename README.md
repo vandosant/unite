@@ -7,6 +7,7 @@ Example app available at [S3 bucket](http://unite-app.s3-website-us-east-1.amazo
 - SSL with AWS certificate manager
 - Cloudfront distribution
 - Programmatic updates of the schema & resolvers (w/ appsync api? terraform?)
+- Remove hardcoded users (auth with AWS Cognito)
 - Write better tests!
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
