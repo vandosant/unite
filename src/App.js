@@ -10,6 +10,7 @@ import { Header, Container } from 'semantic-ui-react'
 import AllMessages from './AllMessages'
 import AppSync from './AppSync'
 import UserSelect from './UserSelect'
+import Greeting from './Greeting'
 import angela from './assets/angela.svg'
 import bill from './assets/bill.svg'
 import jane from './assets/jane.svg'
@@ -83,7 +84,7 @@ export class App extends Component<Props, State> {
     selectedUser: {}
   }
 
-  handleSelectUser (value) {
+  handleSelectUser (value: Number) {
     const user = this.state.users.find(u => u.value === value)
     this.setState({ selectedUser: user })
   }
@@ -98,6 +99,7 @@ export class App extends Component<Props, State> {
             onSelect={this.handleSelectUser.bind(this)}
           />
         </Header>
+        <Greeting message='Unite' />
         <AllMessagesWithData userId={this.state.selectedUser.id} users={this.state.users} />
       </Container>
     )
