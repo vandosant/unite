@@ -13,7 +13,12 @@ let make = (~message=?, _children) => {
   ...component,
   render: (_self) => {
     let text = message |> getWithDefault(defaultText);
-    <h3> (stringToElement(text)) </h3>
+    <div>
+      <h3>
+        <span>(stringToElement(text))</span>
+        <Icon name="wechat" size="big" />
+      </h3>
+    </div>
   }
 };
 

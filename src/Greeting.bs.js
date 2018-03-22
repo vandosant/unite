@@ -3,6 +3,7 @@
 
 var React = require("react");
 var Js_option = require("bs-platform/lib/js/js_option.js");
+var Icon$Unite = require("./Icon.bs.js");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
 
 var component = ReasonReact.statelessComponent("Greeting");
@@ -13,7 +14,7 @@ function make(message, _) {
   var newrecord = component.slice();
   newrecord[/* render */9] = (function () {
       var text = Js_option.getWithDefault(defaultText, message);
-      return React.createElement("h3", undefined, text);
+      return React.createElement("div", undefined, React.createElement("h3", undefined, React.createElement("span", undefined, text), ReasonReact.element(/* None */0, /* None */0, Icon$Unite.make("wechat", /* Some */["big"], /* array */[]))));
     });
   return newrecord;
 }
