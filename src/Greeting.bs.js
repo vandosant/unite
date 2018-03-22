@@ -5,7 +5,7 @@ var React = require("react");
 var Js_option = require("bs-platform/lib/js/js_option.js");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
 
-var component = ReasonReact.statelessComponent("Header");
+var component = ReasonReact.statelessComponent("Greeting");
 
 var defaultText = "Welcome to my blog post!";
 

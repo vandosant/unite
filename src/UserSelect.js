@@ -27,7 +27,7 @@ export default class UserSelect extends Component<Props> {
       <Menu compact>
         <Dropdown
           onChange={this.handleChange.bind(this)}
-          placeholder='Select User'
+          placeholder='Select your user'
           selection
           options={userOptions}
           value={selectedUser.value}

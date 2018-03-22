@@ -11,10 +11,16 @@ import {
 
 type Props = {
   messages: Array<Object>,
-  users: Array<Object>,
+  users: Array<{
+    key: Number,
+    color: String,
+    avatar: String,
+    text: String
+  }>,
   userId: Number,
-  onAdd: Function,
-  subscribeToNewPosts: Function
+  onSubmit: Function,
+  subscribeToNewPosts: Function,
+  subscribeToNewMessages: Function
 }
 
 type State = {
@@ -43,13 +49,11 @@ export default class AllMessages extends Component<Props, State> {
     this.props.subscribeToNewMessages()
   }
 
-  handleChange (field: String, event: Object) {
-    event.preventDefault()
-
-    this.setState({ [field]: event.target.value })
+  handleChange = (event: Object) => {
+    this.setState({ text: event.target.value })
   }
 
-  handleAdd (event: Object) {
+  handleSubmit = (event: Object) => {
     event.preventDefault()
 
     const { text } = this.state
@@ -62,7 +66,7 @@ export default class AllMessages extends Component<Props, State> {
     }
 
     this.setState({ text: '' })
-    this.props.onAdd({ ...add })
+    this.props.onSubmit({ ...add })
   }
 
   render () {
@@ -90,11 +94,11 @@ export default class AllMessages extends Component<Props, State> {
                 </Message>
               })
           }
-          <Form onChange={this.handleChange.bind(this, 'text')} onSubmit={this.handleAdd.bind(this)}>
+          <Form onChange={this.handleChange} onSubmit={this.handleSubmit}>
             <Form.Field>
               <label>Message</label>
               <input
-                placeholder={!userId ? 'Select a user' : 'Message'}
+                placeholder={!userId ? 'Select your user' : 'Message'}
                 value={this.state.text}
                 disabled={!userId}
               />

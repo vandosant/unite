@@ -6,7 +6,11 @@ import { AUTH_TYPE } from 'aws-appsync/lib/link/auth-link'
 import { graphql, ApolloProvider, compose } from 'react-apollo'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import gql from 'graphql-tag'
-import { Header, Container } from 'semantic-ui-react'
+import {
+  Container,
+  Header,
+  Grid
+} from 'semantic-ui-react'
 import AllMessages from './AllMessages'
 import AppSync from './AppSync'
 import UserSelect from './UserSelect'
@@ -93,14 +97,27 @@ export class App extends Component<Props, State> {
     return (
       <Container style={{ 'padding': '2em' }}>
         <Header>
-          <UserSelect
-            userOptions={this.state.users}
-            selectedUser={this.state.selectedUser}
-            onSelect={this.handleSelectUser.bind(this)}
-          />
+          <Grid
+            stackable
+            columns={16}
+            verticalAlign='middle'
+          >
+            <Grid.Column width={8}>
+              <Greeting message='Unite' />
+            </Grid.Column>
+            <Grid.Column width={8} textAlign='right'>
+              <UserSelect
+                userOptions={this.state.users}
+                selectedUser={this.state.selectedUser}
+                onSelect={this.handleSelectUser.bind(this)}
+              />
+            </Grid.Column>
+          </Grid>
         </Header>
-        <Greeting message='Unite' />
-        <AllMessagesWithData userId={this.state.selectedUser.id} users={this.state.users} />
+        <AllMessagesWithData
+          userId={this.state.selectedUser.id}
+          users={this.state.users}
+        />
       </Container>
     )
   }
@@ -179,7 +196,7 @@ export const AllMessagesWithData = compose(
       }
     },
     props: props => ({
-      onAdd: message => props.mutate({
+      onSubmit: message => props.mutate({
         mutation: CreateMessageMutation,
         variables: message,
         optimisticResponse: {

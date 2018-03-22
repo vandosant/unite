@@ -2,7 +2,7 @@ open ReasonReact;
 
 let getWithDefault = Js.Option.getWithDefault;
 
-let component = statelessComponent("Header");
+let component = statelessComponent("Greeting");
 
 let defaultText = "Welcome to my blog post!";
 
