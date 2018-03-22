@@ -1,9 +1,12 @@
 # unite
-user-to-user messaging web app
+real time messaging web app
 
-Example app available at [S3 bucket](http://unite-app.s3-website-us-east-1.amazonaws.com)
+Demo live on [s3](http://unite-app.s3-website-us-east-1.amazonaws.com)
+
+Development soundtrack by [bell witch](https://theflenser.bandcamp.com/album/demo-2011)
 
 ## todos
+- Actually implement user-to-user messaging (filter messages (conversations?) that are from the current user and to a selected user)
 - SSL with AWS certificate manager
 - Cloudfront distribution
 - Programmatic updates of the schema & resolvers (w/ appsync api? terraform?)
