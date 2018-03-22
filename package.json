@@ -20,9 +20,9 @@
     "lint": "standard --env jest",
     "flow": "flow",
     "standard": "standard",
-    "buckle:up": "bsb -make-world -w",
-    "buckle:build": "bsb -make-world",
-    "buckle:clean": "bsb -clean-world"
+    "bsb:build": "bsb -make-world",
+    "bsb:start": "bsb -make-world -w",
+    "bsb:clean": "bsb -clean-world"
   },
   "devDependencies": {
     "apollo-cache-inmemory": "^1.1.9",
@@ -44,6 +44,9 @@
     "parser": "babel-eslint",
     "plugins": [
       "flowtype"
+    ],
+    "ignore": [
+      "/src/*.bs.js"
     ]
   }
 }

@@ -1,16 +1,27 @@
 {
   "name" : "unite",
   "suffic": ".bs.js",
-  "reason" : { "react-jsx" : 2 },
-  "bs-dependencies": ["reason-react", "reason-js"],
+  "reason" : {
+    "react-jsx" : 2
+  },
   "sources": [
     {
       "dir": "src",
       "subdirs": true,
     }
   ],
-  "package-specs": {
+  "package-specs": [{
     "module": "commonjs",
     "in-source": true
+  }],
+  "suffix": ".bs.js",
+  "namespace": true,
+  "bs-dependencies": [
+    "reason-react",
+    "reason-js"
+  ],
+  "refmt": 3,
+  "warnings": {
+    "error": "+5"
   }
 }
